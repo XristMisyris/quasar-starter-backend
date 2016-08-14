@@ -4,6 +4,8 @@ namespace App\Api\Controllers;
 
 use App\Api\Transformers\UsersTransformer;
 use App\Http\Controllers\Controller;
+use App\User;
+use Cyvelnet\Laravel5Fractal\Facades\Fractal;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -51,7 +53,7 @@ class AuthenticateController extends Controller
         }
 
         // the token is valid and we have found the user via the sub claim
-        return $this->item($user, new UsersTransformer);
+        return Fractal::item($user, new UsersTransformer)->responseJson();
     }
 
     public function register(Request $request)

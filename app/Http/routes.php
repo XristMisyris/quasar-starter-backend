@@ -22,7 +22,7 @@ Route::get('/', function () {
 */
 $api = app('Dingo\Api\Routing\Router');
 
-$api->version('v1', function ($api) {
+$api->version('v1', ['middleware' => '\Barryvdh\Cors\HandleCors::class'], function ($api) {
     $api->group(['namespace' => 'App\Api\Controllers'], function ($api) {
 
         $api->post('authenticate', 'AuthenticateController@authenticate');
