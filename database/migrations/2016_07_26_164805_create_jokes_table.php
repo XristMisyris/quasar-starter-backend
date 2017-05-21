@@ -29,6 +29,6 @@ class CreateJokesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('jokes');
+        Schema::dropIfExists('jokes');
     }
 }

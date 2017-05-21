@@ -1,8 +1,6 @@
 <?php
 
-use App\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class UsersSeeder extends Seeder
 {
@@ -13,14 +11,10 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->truncate();
-
-        $faker = Faker\Factory::create();
-
-        User::create([
-            'name'      => $faker->userName,
-            'email'     => 'test@test.com',
-            'password'  => bcrypt('test')
+        DB::table('users')->insert([
+            'name' => 'Quasar User',
+            'email' => 'quasar@quasar-framework.org',
+            'password' => bcrypt('quasar')
         ]);
     }
 }

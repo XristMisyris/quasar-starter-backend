@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Api\Controllers;
 
 use Dingo\Api\Routing\Helpers;
