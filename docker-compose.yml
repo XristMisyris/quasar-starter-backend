@@ -21,7 +21,7 @@ services:
     build:
       context: ./docker/nginx
     ports:
-      - 9999:80
+      - 127.0.0.1:8000:80
     volumes:
       - .:/app
     links:
