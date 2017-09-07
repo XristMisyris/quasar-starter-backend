@@ -1,0 +1,52 @@
+version: '2'
+services:
+  php:
+    container_name: quasar-php
+    build:
+      context: ./docker/php
+    environment:
+      - DB_CONNECTION=mysql
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_DATABASE=app
+      - DB_USERNAME=app
+      - DB_PASSWORD=password
+    volumes:
+      - .:/app
+    links:
+      - mysql
+
+  nginx:
+    container_name: quasar-nginx
+    build:
+      context: ./docker/nginx
+    ports:
+      - 127.0.0.1:8000:80
+    volumes:
+      - .:/app
+    links:
+      - php
+
+  mysql:
+    container_name: quasar-mysql
+    image: mysql:5.7
+    environment:
+      - MYSQL_DATABASE=app
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=app
+      - MYSQL_PASSWORD=password
+    ports:
+      - 8571:3306
+    volumes:
+      - app-db:/var/lib/mysql
+
+  composer:
+    container_name: quasar-composer
+    image: composer/composer
+    volumes_from:
+      - php
+    working_dir: /app
+    command: -V
+
+volumes:
+  app-db:
